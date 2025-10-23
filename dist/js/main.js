@@ -106,14 +106,47 @@ if (readMoreBtn) {
             if (box.style.maxHeight) {
                 box.style.maxHeight = null
                 btn.classList.remove('read-more-btn_open')
+                if (btn.classList.contains('vedart-job-sec__btn_arrow-line')) {
+                    btn.classList.remove('vedart-job-sec__btn_arrow-line-none')
+                }
             } else {
                 box.style.maxHeight = box.scrollHeight + 'px'
                 btn.classList.add('read-more-btn_open')
+                if (btn.classList.contains('vedart-job-sec__btn_arrow-line')) {
+                    btn.classList.add('vedart-job-sec__btn_arrow-line-none')
+                }
             }
          })
     }
     )   
 }
 
+const subTasksBtns = document.querySelectorAll('.sub-tasks__read-more-btn');
+const subTasksAnswerBoxes = document.querySelectorAll('.sub-tasks__read-more-box');
+const subTasksTitles = document.querySelectorAll('.sub-tasks__item-title');
 
-
+subTasksBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        subTasksBtns.forEach(btn => {
+            btn.classList.remove('sub-tasks__read-more-btn_open')
+        })
+        subTasksTitles.forEach(title => {
+            title.classList.remove('sub-tasks__item-title_open')
+        })
+        const title = document.querySelector(`.sub-tasks__item-title-${btn.dataset.task}`)
+        const boxTask = document.querySelector(`.sub-tasks__read-more-box-${btn.dataset.task}`)
+        if (boxTask.style.maxHeight) {
+            boxTask.style.maxHeight = null
+            
+        } else {
+            subTasksAnswerBoxes.forEach(box => {
+            box.style.maxHeight = null
+        })
+            setTimeout(() => {
+                boxTask.style.maxHeight = boxTask.scrollHeight + 'px'
+            }, 200)
+            btn.classList.add('sub-tasks__read-more-btn_open')
+            title.classList.add('sub-tasks__item-title_open')
+        }
+    })
+})
