@@ -5336,6 +5336,9 @@ body {
 }
 
 @media(max-width: 767px) {
+  .sub-process__item-text br {
+    display: none;
+  }
   .sub-section-main__top-pl {
     width: 647px;
 }
